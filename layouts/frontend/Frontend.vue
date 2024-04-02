@@ -4,6 +4,10 @@
 
 <template>
     <div>
-        <slot></slot>
+        <div class="space-y-10">
+           <FrontendHeader/>
+            <slot></slot> 
+            <FrontendFooter/>
+        </div>
     </div>
 </template>

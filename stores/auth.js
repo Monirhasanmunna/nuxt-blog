@@ -1,20 +1,40 @@
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('auth', ()=>{
-    const counter = ref(0);
+    const isLogedIn = ref(false);
+    const authUser = ref(null);
+    
+   async function login(credencials){
+        const {data} = await useFetch("http://blogapi.test/api/login",{
+            method:"POST",
+            body:credencials,
+            headers:{
+                "Content-Type" : "application/json"
+            }
+        });
 
-    function increment(){
-        counter.value++
+        if(data.value.status == 200 && data.value.token && data.value.user){
+            isLogedIn.value = true
+            authUser.value = data.value.user
+            navigateTo('/dashboard')
+        }
     }
 
-    function decrement(){
-        counter.value--
-    }
 
+    function logout(){
+        isLogedIn.value = false;
+        authUser.value = null;
+        navigateTo('/login')
+    }
 
     return {
-        counter,
-        increment,
-        decrement
+        login,
+        isLogedIn,
+        authUser,
+        logout
     }
-});
+},
+{
+    persist: {storage: persistedState.localStorage}
+}
+);
