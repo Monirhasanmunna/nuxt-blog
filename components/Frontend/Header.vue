@@ -22,33 +22,36 @@
                     </div>
                 </div>
                 <!-- right side -->
-                <div class="w-[100px] flex items-center justify-end">
-                    <UIcon @click="isOpen = true" name="i-heroicons-bars-3-solid" class="text-[20px] sm:hidden" />
-                    <UIcon name="i-heroicons-magnifying-glass-20-solid" class="text-[20px]" />
+                <div class="w-[100px] flex items-center justify-end gap-4">
+                    <div><Icon  name="i-heroicons-magnifying-glass-20-solid" class="text-[20px]" /></div>
+                    <div class="sm:hidden"><Icon class="text-[20px]" data-hs-overlay="#nav_manu_canvas" name="i-heroicons-bars-3-solid" /></div>
                 </div>
             </div>
             <!-- header end -->
 
             <!-- mobile navbar -->
-                <USlideover v-if="isOpen" v-model="isOpen" prevent-close class="h-[300px]">
-                <UCard class="flex flex-col flex-1 " :ui="{ body: { base: 'flex-1' }, ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-                    <template #header>
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-base text-[22px] text-green-600 uppercase font-semibold leading-6 dark:text-white">
-                            Dev Blog
-                        </h3>
-                        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isOpen = false" />
-                    </div>
-                    </template>
-
-                    <div class="flex flex-start flex-col items-center gap-4 px-3">
-                        <NuxtLink class="text-gray-600 text-[14px] font-montserrat font-semibold capitalize">News</NuxtLink>
-                        <NuxtLink class="text-gray-600 text-[14px] font-montserrat capitalize">Popular</NuxtLink>
-                        <NuxtLink class="text-gray-600 text-[14px] font-montserrat capitalize">Web Design</NuxtLink>
-                        <NuxtLink class="text-gray-600 text-[14px] font-montserrat capitalize">javaScript</NuxtLink>
-                    </div>
-                </UCard>
-                </USlideover>
+            <div id="nav_manu_canvas" class="hs-overlay hs-overlay-open:translate-x-0 hidden -translate-x-full fixed top-0 start-0 transition-all duration-300 transform  h-auto w-full  z-[80] bg-white border-e dark:bg-gray-800 dark:border-gray-700" tabindex="-1">
+                <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
+                    <h1 class="text-[22px] text-green-600 uppercase">Dev Blog</h1>
+                    <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700" data-hs-overlay="#nav_manu_canvas">
+                        <span class="sr-only">Close modal</span>
+                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6 6 18"></path>
+                            <path d="m6 6 12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-800 dark:text-gray-400">
+                        <div class="h-full flex flex-col items-center gap-4 px-3">
+                            <NuxtLink class="text-gray-600 text-[14px] font-montserrat font-semibold capitalize">News</NuxtLink>
+                            <NuxtLink class="text-gray-600 text-[14px] font-montserrat capitalize">Popular</NuxtLink>
+                            <NuxtLink class="text-gray-600 text-[14px] font-montserrat capitalize">Web Design</NuxtLink>
+                            <NuxtLink class="text-gray-600 text-[14px] font-montserrat capitalize">javaScript</NuxtLink>
+                        </div>
+                    </p>
+                </div>
+                </div>
       
             <!-- mobile navbar -->
         </div>

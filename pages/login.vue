@@ -1,10 +1,16 @@
 <script setup>
+    import {useStore} from '~/stores/auth'
     definePageMeta({ 
         layout: 'frontend-login',
         middleware:['auth']
      })
 
-    import {useStore} from '~/stores/auth'
+     useHead({
+        titleTemplate: (titleChunk) => {
+            return titleChunk ? `${titleChunk} - Login` : 'Login';
+        }
+     })
+    
     const store = useStore();
 
     const credencials = reactive({
@@ -41,7 +47,7 @@
                         </div>
 
                         <div class="w-full">
-                            <button type="submit" class="bg-primary px-3 py-1 text-white rounded">Login</button>
+                            <button type="submit" class="bg-green-600 px-3 py-1 text-white rounded">Login</button>
                         </div>
                     </form>
                 </div>
