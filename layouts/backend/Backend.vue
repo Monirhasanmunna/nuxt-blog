@@ -18,12 +18,3 @@
     </div>
 </template>
 
-<style scoped>
-#sidebar {
-    transition: min-width 0.3s; /* Optional: Add a smooth transition effect */
-  }
-
-  #bodyCard {
-    transition: margin-left 0.3s; /* Optional: Add a smooth transition effect */
-  }
-</style>

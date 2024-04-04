@@ -6,7 +6,7 @@ const store = useStore();
 
 <template>
     <!-- header start -->
-    <div class="w-full h-[50px] flex bg-green-600 fixed text-white">
+    <div class="w-full h-[50px] flex bg-green-500 fixed text-white">
         <div class="min-w-[230px] hidden h-full sm:flex justify-center items-center text-white  bg-green-600 border-r">
             <h2 class="text-[20px]">Dashboard</h2>
         </div>
