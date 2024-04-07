@@ -1,10 +1,11 @@
 <script setup>
-    
+    definePageMeta({
+        layout: 'backend'
+    })
 </script>
 
 <template>
     <div>
-        <FrontendHeader/>
-        <NuxtPage/> 
+        
     </div>
 </template>

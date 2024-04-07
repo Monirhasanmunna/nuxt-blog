@@ -3,11 +3,9 @@
 </script>
 
 <template>
-    <div>
-        <div class="space-y-10">
-           <FrontendHeader/>
-            <slot></slot> 
+    <div class="space-y-10">
+            <FrontendHeader/>
+                <NuxtPage/> 
             <FrontendFooter/>
         </div>
-    </div>
 </template>

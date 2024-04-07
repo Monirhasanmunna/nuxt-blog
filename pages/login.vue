@@ -24,8 +24,7 @@
 </script>
 
 <template>
-    <div>
-        <div class="main w-full md:max-w-[1000px] mx-auto px-3">
+    <div class="main w-full md:max-w-[1000px] mx-auto px-3">
             <div class="flex justify-center items-center w-full h-[400px]">
                 <div class="w-4/12 border border-gray-400 p-4 space-y-5">
                     <div class="w-full border-b pb-3">
@@ -53,5 +52,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>

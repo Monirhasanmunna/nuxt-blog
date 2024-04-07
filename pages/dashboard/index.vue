@@ -12,11 +12,9 @@
 </script>
 
 <template>   
-    <!-- body start -->
     <div>
         <h2 class="text-[20px]">Hello World</h2>
     </div>
-    <!-- body ends -->
 </template>
 
 <style scoped>

@@ -13,7 +13,9 @@ const store = useStore();
                 
         <div class="w-full flex justify-between items-center relative px-3">
             <div class="absolute left-2"><Icon id="toggleButton"class="text-[23px]" data-hs-overlay="#nav_manu_canvas" name="i-heroicons-bars-3-solid" /></div>
-            <div></div>
+            <div class="ml-8">
+                <NuxtLink to="/" class="py-1 px-3 bg-blue-600 rounded-lg flex items-center">Website</NuxtLink>
+            </div>
 
             <BackendAvatarDropdown/>
         </div>
