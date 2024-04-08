@@ -1,6 +1,6 @@
 <script setup>
     useHead({
-        script:[{src:"js/dashboard.js", body: true}]
+        script:[{src:"/js/dashboard.js", body: true}]
     })
 </script>
 

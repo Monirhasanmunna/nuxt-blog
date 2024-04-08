@@ -31,35 +31,26 @@ const breadcrumbs = [
     },
 ]
 
+const headers = [
+    { text: "Name", value: "name" },
+    { text: "Slug", value: "slug" },
+    { text: "Status", value: "status" },
+];
+
+
 const store = useCategoryStore();
-onMounted(()=> {
-    store.getCategories()
+const items = ref([]);
+
+onMounted(async ()=> {
+    await store.getCategories();
+    items.value = store.categories;
 });
 
-// console.log(store.categories);
-
-const headers = [
-      { text: "Name", value: "name" },
-      { text: "Slug", value: "slug" },
-      { text: "Status", value: "status" },
-    ];
-
-const items = [
-      { "name": "Curry", "height": 178, "weight": 77, "age": 20, "number": 1771501865 },
-      { "name": "James", "height": 180, "weight": 75, "age": 21 },
-      { "name": "Jordan", "height": 181, "weight": 73, "age": 22 }
-    ];
-
-    
-    const auth = useStore();
 </script>
 
 <template>
     <div class="pt-[20px] h-screen space-y-6">
         <BackendBreadcrumb :breadcrumbs="breadcrumbs" />
-
-        {{ auth.isLogedIn }}
-        {{ auth.authUser.token }}
 
         <BackendBox class="space-y-5">
             <div class="flex justify-between items-center">
@@ -67,9 +58,9 @@ const items = [
                 <button class="capitalize bg-green-600 text-white px-3 py-1 rounded-md hover:bg-green-700 duration-150">Add new</button>
             </div>
             
-            <BackendBox class="border-none">
-                <DataTable v-if="!store.isLoading" :headers="headers" :items="items" />
-            </BackendBox>
+            <BackendTableSakeleton v-if="store.isLoading || !store.categories"/>
+            <DataTable v-else :headers="headers" :items="items" /> 
+            
         </BackendBox>
     </div>
 </template>

@@ -2,10 +2,11 @@ import { defineStore } from 'pinia'
 import { useStore } from './auth';
 
 export const useCategoryStore = defineStore('category', ()=>{
+    const isLoading     = ref(false);
     const categories    = ref(null);
     const store         = useStore();
     const authToken     = computed(() => store.authUser.token);
-    const isLoading     = ref(false);
+    
 
 
    async function getCategories(){
