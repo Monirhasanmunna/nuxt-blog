@@ -16,7 +16,8 @@
     "pinia-plugin-persistedstate": "^3.2.1",
     "preline": "^2.1.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-easy-data-table": "^1.5.47"
   },
   "devDependencies": {
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",

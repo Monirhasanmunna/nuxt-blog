@@ -7,7 +7,7 @@
         <div class="w-full md:max-w-[1000px] mx-auto px-3 flex justify-between items-center">
             <div class="flex items-center">
                 <div class="h-auto w-auto md:border-r border-gray-200 py-2 pr-2">
-                   <NuxtLink to="/"><h1 class="text-[22px] text-green-600 uppercase">Dev Blog</h1></NuxtLink> 
+                   <NuxtLink class="text-[22px] text-green-600 uppercase" to="/">Dev Blog</NuxtLink> 
                 </div>
                 <div class="hidden h-full md:flex flex-start items-center gap-4 px-3">
                     <NuxtLink class="text-gray-600 text-[14px] font-montserrat font-semibold capitalize">News</NuxtLink>

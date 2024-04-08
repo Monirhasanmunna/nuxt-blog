@@ -4,8 +4,6 @@ const store = useStore();
 
 const user = computed(()=> store.authUser);
 
-console.log(user.value)
-
 </script>
 
 <template>

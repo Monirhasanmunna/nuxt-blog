@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('auth', ()=>{
-    const isLogedIn = ref(false);
-    const authUser = ref(null);
+    const authUser = useCookie('user');
     
    async function login(credencials){
-        const {data} = await useFetch("http://blogapi.test/api/login",{
+        const data = await $fetch("http://blogapi.test/api/login",{
             method:"POST",
             body:credencials,
             headers:{
@@ -13,28 +12,22 @@ export const useStore = defineStore('auth', ()=>{
             }
         });
 
-        if(data.value.status == 200 && data.value.token && data.value.user){
-            isLogedIn.value = true
-            authUser.value = data.value.user
+
+        if(data.status == 200 && data.token && data.user){
+            authUser.value = data
             navigateTo('/dashboard')
         }
     }
 
 
     function logout(){
-        isLogedIn.value = false;
         authUser.value = null;
         navigateTo('/login')
     }
 
     return {
         login,
-        isLogedIn,
         authUser,
         logout
     }
-},
-{
-    persist: {storage: persistedState.localStorage}
-}
-);
+});

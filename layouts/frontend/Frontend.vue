@@ -5,7 +5,7 @@
 <template>
     <div class="space-y-10">
             <FrontendHeader/>
-                <NuxtPage/> 
+                <slot></slot>
             <FrontendFooter/>
         </div>
 </template>
