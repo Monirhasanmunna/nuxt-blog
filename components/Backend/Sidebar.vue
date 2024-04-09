@@ -26,13 +26,8 @@
 
               <div id="users-accordion-child" class="hs-accordion-content text-[13px] w-full bg-blue-200 mt-[5px] rounded-lg overflow-hidden transition-[height] duration-300 hidden">
                 <ul class="hs-accordion-group p-2" data-hs-accordion-always-open>
-                  <NuxtLink to="/dashboard/category/create">
-                  <li class="hs-accordion hover:bg-blue-100 p-[8px] rounded-md" id="users-accordion-sub-1">
-                      Category Create
-                  </li>
-                  </NuxtLink>
                   <NuxtLink to="/dashboard/category">
-                    <li class="hs-accordion hover:bg-blue-100 p-[8px] rounded-md" id="users-accordion-sub-1">
+                    <li class="hs-accordion hover:bg-blue-100  p-[8px] rounded-md" id="users-accordion-sub-1">
                         Category List
                     </li>
                   </NuxtLink>

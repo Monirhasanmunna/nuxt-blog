@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('auth', ()=>{
-    const authUser = useCookie('user');
+    const authUser = useCookie('user',{
+        maxAge: 60 * 60 * 24 * 7,
+        sameSite: 'strict'
+    });
     
    async function login(credencials){
         const data = await $fetch("http://blogapi.test/api/login",{
