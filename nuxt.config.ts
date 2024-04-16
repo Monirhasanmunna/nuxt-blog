@@ -20,5 +20,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  plugins: ["~/plugins/preline.client.ts"],
+  plugins: ["~/plugins/preline.client.ts", "~/plugins/sweetalert2.js"],
 })
