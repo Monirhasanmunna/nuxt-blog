@@ -9,6 +9,7 @@
             return titleChunk ? `${titleChunk} - Dashboard` : 'Dashboard';
         }
      })
+
 </script>
 
 <template>   

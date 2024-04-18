@@ -70,7 +70,7 @@ export const useSubCategoryStore = defineStore('sub-category', ()=>{
     }
 
 
-   async function editSubCategory(id){
+    async function editSubCategory(id){
         const data = await $fetch(`http://blogapi.test/api/sub-category/edit/${id}`,{
             headers:{
                 'Content-Type'  : 'application/json',

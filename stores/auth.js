@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 export const useStore = defineStore('auth', ()=>{
     const authUser = useCookie('user',{
         maxAge: 60 * 60 * 24 * 7,
-        sameSite: 'strict'
     });
     
    async function login(credencials){
@@ -24,8 +23,11 @@ export const useStore = defineStore('auth', ()=>{
 
 
     function logout(){
-        authUser.value = null;
-        navigateTo('/login')
+        authUser.value = '';
+        if(!authUser.value){
+           navigateTo('/login') 
+        }
+        
     }
 
     return {
