@@ -1,5 +1,5 @@
 <script setup>
-import {useCategoryStore} from '~/stores/category'
+import {useSubCategoryStore} from '~/stores/sub-category'
 import {useStore} from '~/stores/auth'
 import Swal from 'sweetalert2';
 
@@ -9,39 +9,40 @@ definePageMeta({
 
 useHead({
     titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} - Category` : 'Category';
+        return titleChunk ? `${titleChunk} - Sub Category` : 'Sub category';
     }
 });
 
 const breadcrumbs = [
     {
-        label: 'Category',
-        link: '/dashboard/category'
+        label: 'Sub Category',
+        link: '/dashboard/sub-category'
     },
 ]
 
-const store = useCategoryStore();
+const store = useSubCategoryStore();
 const items = ref([]);
 
 onMounted(async ()=> {
-    await store.getCategories();
-    items.value = store.categories;
+    await store.getSubCategories();
+    items.value = store.subCategories;
 });
 
 const formInput = reactive({
-    name: ''
+    name: '',
+    category_id: ''
 });
 
 async function submitForm(){
-  await store.storeCategory(formInput);
+  await store.storeSubCategory(formInput);
 }
 
 function selectedItem(id){
-    store.editCategory(id)
+    store.editSubCategory(id)
 }
 
 function updateForm(){
-    store.updateData()
+    store.updateSubCategory()
 }
 
 
@@ -58,10 +59,10 @@ const clickDeleteBtn = (id) => {
         if (result.isConfirmed) {
             Swal.fire({
             title: "Deleted!",
-            text: "Category has been deleted.",
+            text: "Sub Category has been deleted.",
             icon: "success"
             });
-            store.deleteData(id)
+            store.deleteSubCategory(id)
         }
     });
 }
@@ -71,13 +72,15 @@ const clickDeleteBtn = (id) => {
 <template>
     <div class="pt-[20px] h-screen space-y-6">
         <BackendBreadcrumb :breadcrumbs="breadcrumbs" />
+
         <BackendBox class="space-y-5">
             <div class="flex justify-between items-center">
-                <h2 class="capitalize text-gray-500 ">category List</h2>
-                <button data-hs-overlay="#categoryStore" class="capitalize flex items-center gap-1 bg-green-600 text-white px-3 py-1 rounded-md hover:bg-green-700 duration-150"><Icon class="text-[18px]" name="heroicons:plus-circle-16-solid" /> Add new</button>
+                <h2 class="capitalize text-gray-500 ">sub Category List</h2>
+                <button data-hs-overlay="#subCategoryStore" class="capitalize flex items-center gap-1 bg-green-600 text-white px-3 py-1 rounded-md hover:bg-green-700 duration-150"><Icon class="text-[18px]" name="heroicons:plus-circle-16-solid" /> Add new</button>
             </div>
 
-            <BackendTableSakeleton v-if="store.isLoading || !store.categories"/>
+            <BackendTableSakeleton v-if="store.isLoading || !store.subCategories"/>
+
             <div v-else class="overflow-hidden">
                 <table class="min-w-full divide-y divide-gray-300 dark:divide-gray-700 border" >
                     <thead class="">
@@ -87,6 +90,9 @@ const clickDeleteBtn = (id) => {
                             </td>
                             <td class="text-start text-[13px] font-medium text-gray-500 dark:text-gray-400 capitalize">
                                 Name
+                            </td>
+                            <td class="text-start text-[13px] font-medium text-gray-500 dark:text-gray-400 capitalize">
+                                Category
                             </td>
                             <td class="text-start text-[13px] font-medium text-gray-500 dark:text-gray-400 capitalize">
                                 Status
@@ -103,6 +109,10 @@ const clickDeleteBtn = (id) => {
                             
                             <td class="py-2  whitespace-nowrap text-[13px] font-medium text-gray-800 dark:text-gray-200">
                                 {{ item.name }}
+                            </td>
+
+                            <td class="py-2  whitespace-nowrap text-[13px] font-medium text-gray-800 dark:text-gray-200">
+                                {{ item.category.name }}
                             </td>
 
                             <td class="py-2 whitespace-nowrap text-[13px] text-gray-800 dark:text-gray-200">
@@ -123,20 +133,28 @@ const clickDeleteBtn = (id) => {
                 </table>
                 </div>
             
-            <div id="categoryStore" class="hs-overlay hidden  size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+            <div id="subCategoryStore" class="hs-overlay hidden  size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
                 <div class="hs-overlay-open:mt-7  hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
                     <div class="w-full flex flex-col bg-white border border-green-500 shadow-sm  rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
                         <div class="flex justify-end items-center pt-3 px-4">
-                            <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700" data-hs-overlay="#categoryStore">
+                            <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700" data-hs-overlay="#subCategoryStore">
                             <span class="sr-only">Close</span>
                             <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 6 6 18"></path>
                                 <path d="m6 6 12 12"></path>
-                            </svg>
+                            </svg> 
                             </button>
                         </div>
-                        <form @submit.prevent="submitForm">
-                            <div class="p-4 overflow-y-auto space-y-1">
+                        <form @submit.prevent="submitForm" class="space-y-3">
+                            <div class="px-4 overflow-y-auto space-y-1">
+                                <label for="name">Category</label>
+                                <select v-model="formInput.category_id" class="py-2 px-3 pe-9 block w-full border-green-500 rounded-md text-sm focus:border-green-800 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                    <option value="" hidden>Open this select menu</option>
+                                    <option v-for="(item, index) in store.categories" :key="index" :value="item.id" >{{ item.name }}</option>
+                                </select>
+                                <h6 v-if="store.errors?.name" class="text-red-600 text-sm">{{ store.errors?.name }}</h6>
+                            </div>
+                            <div class="px-4 overflow-y-auto space-y-1">
                                 <label for="name">Name</label>
                                 <input v-model="formInput.name" type="text" id="name" class="w-full px-3 py-1 border border-green-500 focus:border-red-600 rounded" placeholder="Enter name">
                                 <h6 v-if="store.errors?.name" class="text-red-600 text-sm">{{ store.errors?.name }}</h6>
@@ -157,12 +175,12 @@ const clickDeleteBtn = (id) => {
             </div>
 
 
-            <div id="categoryEdit" class="hs-overlay hidden  size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+            <div id="subCategoryEdit" class="hs-overlay hidden  size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
                 <div class="hs-overlay-open:mt-7  hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
                     <div class="w-full flex flex-col bg-white border border-green-500 shadow-sm  rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
                         <div class="flex justify-between items-center pt-3 px-4">
-                            <h3 class="text-gray-500 text-[18px]">Category Edit</h3>
-                            <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700" data-hs-overlay="#categoryEdit">
+                            <h3 class="text-gray-500 text-[18px]">Sub Category Edit</h3>
+                            <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700" data-hs-overlay="#subCategoryEdit">
                             <span class="sr-only">Close</span>
                             <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 6 6 18"></path>
@@ -170,8 +188,16 @@ const clickDeleteBtn = (id) => {
                             </svg>
                             </button>
                         </div>
-                        <form @submit.prevent="updateForm">
-                            <div class="p-4 overflow-y-auto space-y-1">
+                        <form @submit.prevent="updateForm" class="pt-3 space-y-3">
+                            <div class="px-4 overflow-y-auto space-y-1">
+                                <label for="name">Category</label>
+                                <select v-model="store.editData.category_id" class="py-2 px-3 pe-9 block w-full border-green-500 rounded-md text-sm focus:border-green-800 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                    <option value="" hidden>Open this select menu</option>
+                                    <option v-for="(item, index) in store.categories" :key="index" :value="item.id" >{{ item.name }}</option>
+                                </select>
+                                <h6 v-if="store.errors?.name" class="text-red-600 text-sm">{{ store.errors?.name }}</h6>
+                            </div>
+                            <div class="px-4 overflow-y-auto space-y-1">
                                 <label for="name">Name</label>
                                 <input v-model="store.editData.name" type="text" id="name" class="w-full px-3 py-1 border border-green-500 focus:border-red-600 rounded" placeholder="Enter name">
                                 <h6 v-if="store.errors?.name" class="text-red-600 text-sm">{{ store.errors?.name }}</h6>
